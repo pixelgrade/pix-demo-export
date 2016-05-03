@@ -3,7 +3,7 @@
 return array(
 	'type'    => 'postbox',
 	'label'   => 'Rest Export',
-	'class' => 'half-box',
+	'class' => 'half-box left',
 	'options' => array(
 		'enable_rest_export' => array(
 			'label'      => __( 'Enable Rest Export', 'pixcustomify_txtd' ),

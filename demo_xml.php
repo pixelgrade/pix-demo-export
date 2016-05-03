@@ -1,13 +1,13 @@
 <?php
 /*
-Plugin Name: DemoXml
+Plugin Name: Pix Demo Export
 Plugin URI:  http://pixelgrade.com
 Description: WordPress demo data export.
 Version: 0.0.5
 Author: Andrei Lupu
 Author URI: http://andrei-lupu.com
 Author Email: andrei-lupu@pixelgrade.com
-Text Domain: proof
+Text Domain: pix-demo-export
 License:     GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 Domain Path: /lang
@@ -28,7 +28,7 @@ require 'core/bootstrap'.EXT;
 $config = include 'plugin-config'.EXT;
 
 // set textdomain
-demo_xml::settextdomain($config['textdomain']);
+pix_demo_export::settextdomain($config['textdomain']);
 
 // Ensure Test Data
 // ----------------
@@ -51,7 +51,7 @@ else if (count(array_diff_key($defaults, $current_data)) != 0) {
 
 $basepath = dirname(__FILE__).DIRECTORY_SEPARATOR;
 $callbackpath = $basepath.'callbacks'.DIRECTORY_SEPARATOR;
-demo_xml::require_all($callbackpath);
+pix_demo_export::require_all($callbackpath);
 
 require_once( plugin_dir_path( __FILE__ ) . 'class-demo_xml.php' );
 

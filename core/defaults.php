@@ -27,8 +27,8 @@
 
 		'errors' => array
 			(
-				'is_numeric' => __('Numberic value required.', demo_xml::textdomain()),
-				'not_empty' => __('Field is required.', demo_xml::textdomain()),
+				'is_numeric' => __('Numberic value required.', 'pix-demo-export'),
+				'not_empty' => __('Field is required.', 'pix-demo-export'),
 			),
 
 		'callbacks' => array

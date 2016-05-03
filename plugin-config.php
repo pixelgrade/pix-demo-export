@@ -15,7 +15,7 @@ return array
 
 		'settings-key' => 'demo_xml_settings',
 
-		'textdomain' => 'demo_xml_txtd',
+		'textdomain' => 'pix-demo-export',
 
 		'template-paths' => array
 			(
@@ -30,6 +30,7 @@ return array
 				'rest_export' => include 'settings/rest_export' . EXT,
 				'post_metadata' => include 'settings/post_metadata' . EXT,
 				'wp_options' => include 'settings/wp_options' . EXT,
+				'widgets' => include 'settings/widgets' . EXT,
 				'general' => include 'settings/general' . EXT,
 
 				'replacers'  => include 'settings/replacers'.EXT,
@@ -66,7 +67,7 @@ return array
 
 		'errors' => array
 			(
-				'not_empty' => __('Invalid Value.', demo_xml::textdomain()),
+				'not_empty' => __('Invalid Value.', 'pix-demo-export'),
 			),
 
 		'callbacks' => array

@@ -36,10 +36,10 @@ class DemoXmlFormImpl extends DemoXmlHTMLElementImpl implements DemoXmlForm {
 		$this->errors = array();
 
 		// setup default autocomplete
-		$this->autocomplete = demo_xml::instance('DemoXmlMeta', array());
+		$this->autocomplete = pix_demo_export::instance('DemoXmlMeta', array());
 
 		// setup fields
-		$this->fields = demo_xml::instance('DemoXmlMeta', $config['fields']);
+		$this->fields = pix_demo_export::instance('DemoXmlMeta', $config['fields']);
 		unset($config['fields']);
 
 		// invoke htmltag instance configuration
@@ -79,7 +79,7 @@ class DemoXmlFormImpl extends DemoXmlHTMLElementImpl implements DemoXmlForm {
 			$fieldconfig = $this->fields->get($fieldname);
 		}
 
-		return demo_xml::instance('DemoXmlFormField', $fieldconfig)
+		return pix_demo_export::instance('DemoXmlFormField', $fieldconfig)
 			->setmeta('form', $this)
 			->setmeta('name', $fieldname);
 	}
@@ -173,7 +173,7 @@ class DemoXmlFormImpl extends DemoXmlHTMLElementImpl implements DemoXmlForm {
 	 * @return string
 	 */
 	function fieldtemplate($templatepath, $conf = array()) {
-		$config = demo_xml::instance('DemoXmlMeta', $conf);
+		$config = pix_demo_export::instance('DemoXmlMeta', $conf);
 		return $this->fieldtemplate_render($templatepath, $config);
 	}
 

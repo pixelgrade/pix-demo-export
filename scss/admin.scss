@@ -57,4 +57,12 @@ fieldset.group {
 	width: 48%;
 	margin: 5px;
 	float: left;
+
+	&.left {
+		float: left;
+	}
+
+	&.right {
+		float: right;
+	}
 }

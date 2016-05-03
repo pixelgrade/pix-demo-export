@@ -21,116 +21,6 @@ final class Customify_Exporter_Controller {
 				'callback' => array( $this, 'discover' ),
 			),
 		) );
-
-
-		register_rest_route( 'customify/1.0', 'export', array(
-			array(
-				'methods'  => WP_REST_Server::READABLE,
-				'callback' => array( $this, 'export' ),
-				'args'     => array(
-//					'action'      => array(
-//						'required'          => true,
-//						'sanitize_callback' => 'esc_url_raw',
-//					),
-//					'option_key'   => array(
-//						'required'          => true,
-//						'sanitize_callback' => 'esc_url_raw',
-//					),
-//					'step_id' => array(
-//						'required'          => true,
-//					),
-				),
-			),
-		) );
-
-	}
-
-	/**
-	 * Callback for the API endpoint.
-	 *
-	 * Returns the JSON object for the post.
-	 *
-	 * @since 4.4.0
-	 *
-	 * @param WP_REST_Request $request Full data about the request.
-	 *
-	 * @return WP_Error|array oEmbed response data or WP_Error on failure.
-	 */
-	public function export( $request ) {
-
-		return 'depricated';
-		$result   = array();
-		$settings = get_option( 'demo_xml_settings' );
-
-		if ( ! isset( $settings['enable_rest_export'] ) || empty( $settings['enable_rest_export'] ) || ! $settings['enable_rest_export'] ) {
-			wp_send_json_error( 'no api here' );
-		}
-
-		if ( isset( $settings['enable_rest_export_post_types'] ) && ! empty( $settings['enable_rest_export_post_types'] ) ) {
-			$post_types = $settings['rest_types_export'];
-
-			if ( ! empty( $post_types ) ) {
-
-				foreach ( $post_types as $post_type => $val ) {
-
-					if ( $val === 'on' ) {
-						$args  = array(
-							'post_type' => $post_type
-						);
-						$posts = $the_query = new WP_Query( $args );
-
-						while ( $the_query->have_posts() ) {
-							$the_query->the_post();
-							global $post;
-							$result['post_types'][ $post_type ][ $post->ID ] = $post;
-
-							/**
-							 * @TODO export
-							 * 'comment_status'
-							 * (string) Whether the post can accept comments. Accepts 'open' or 'closed'. Default is the value of 'default_comment_status' option.
-							 *
-							 * Also export metadata
-							 *
-							 */
-						}
-					}
-				}
-			}
-		}
-
-
-		if ( isset( $settings['enable_rest_export_taxonomies'] ) && ! empty( $settings['enable_rest_export_taxonomies'] ) ) {
-			$taxonomies = $settings['rest_taxes_export'];
-
-			if ( ! empty( $taxonomies ) ) {
-
-				foreach ( $taxonomies as $tax => $val ) {
-
-					if ( $val === 'on' ) {
-						$terms = get_terms( $tax );
-
-						foreach ( $terms as $term ) {
-							$result['taxonomies'][ $tax ][ $term->term_id ] = $term;
-
-							/**
-							 * @TODO export
-							 * Also export metadata
-							 *
-							 */
-						}
-					}
-				}
-			}
-		}
-
-		/**
-		 * @TODO Export wp_options
-		 */
-
-		wp_send_json_success( $result );
-
-		// look for this step
-		return $_POST;
 	}
 
 
@@ -214,6 +104,23 @@ final class Customify_Exporter_Controller {
 					$result['wp_options'][$option] = get_option( $option );
 				}
 			}
+
+			$result['wp_options'];
+		}
+
+		if ( isset( $settings['enable_rest_widgets_export'] ) && ! empty( $settings['enable_rest_widgets_export'] ) ) {
+			$widgets = $settings['select_widgets_to_export'];
+
+			$widget_data = Widget_Data::parse_export_data( $widgets );
+			if ( ! empty( $widget_data ) ) {
+				$result['widgets']['success'] = true;
+				$result['widgets']['data'] = $widget_data;
+			}
+//			foreach ( $wp_options as $option => $on ) {
+//				if ( 'on' === $on ) {
+//					$result['wp_options'][$option] = get_option( $option );
+//				}
+//			}
 
 			$result['wp_options'];
 		}

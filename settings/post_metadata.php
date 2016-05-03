@@ -3,7 +3,7 @@
 return array(
 	'type'    => 'postbox',
 	'label'   => 'Metadata Options',
-	'class' => 'half-box',
+	'class' => 'half-box right',
 	'options' => array(
 //		'enable_selective_export' => array(
 //			'label'      => __( 'Selective export', 'pixcustomify_txtd' ),

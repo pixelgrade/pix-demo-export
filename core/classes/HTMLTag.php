@@ -28,7 +28,7 @@ class DemoXmlHTMLTagImpl implements DemoXmlHTMLTag {
 	 * Apply configuration.
 	 */
 	protected function configure($config = null) {
-		$this->attrs = demo_xml::instance('DemoXmlMeta', $config);
+		$this->attrs = pix_demo_export::instance('DemoXmlMeta', $config);
 	}
 
 	/**
@@ -55,7 +55,7 @@ class DemoXmlHTMLTagImpl implements DemoXmlHTMLTag {
 	 */
 	function htmlattributes(array $extra = array()) {
 		$attr_segments = array();
-		$attributes = demo_xml::merge($this->attrs->metadata_array(), $extra);
+		$attributes = pix_demo_export::merge($this->attrs->metadata_array(), $extra);
 		foreach ($attributes as $key => $value) {
 			if ($value !== false && $value !== null) {
 				if ( ! empty($value)) {

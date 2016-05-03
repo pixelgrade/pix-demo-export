@@ -31,11 +31,11 @@ class DemoXmlProcessorImpl implements DemoXmlProcessor {
 	 * Apply configuration.
 	 */
 	protected function configure($config = null) {
-		$this->meta = demo_xml::instance('DemoXmlMeta', $config);
+		$this->meta = pix_demo_export::instance('DemoXmlMeta', $config);
 
 		// extract fields from configuration
 		$fields = $this->extract($this->meta->get('fields', array()));
-		$this->fields = demo_xml::instance('DemoXmlMeta', $fields);
+		$this->fields = pix_demo_export::instance('DemoXmlMeta', $fields);
 	}
 
 	/**
@@ -112,7 +112,7 @@ class DemoXmlProcessorImpl implements DemoXmlProcessor {
 					$current_values = get_option($option_key);
 					$new_option = array_merge($current_values, $input);
 					update_option($option_key, $new_option);
-					$this->data = demo_xml::instance('DemoXmlMeta', $input);
+					$this->data = pix_demo_export::instance('DemoXmlMeta', $input);
 					$this->postupdate($input);
 				}
 				else { // got errors
@@ -147,7 +147,7 @@ class DemoXmlProcessorImpl implements DemoXmlProcessor {
 			throw new Exception('Unable to retrieve options.');
 		}
 
-		$this->data = demo_xml::instance('DemoXmlMeta', $dbconfig);
+		$this->data = pix_demo_export::instance('DemoXmlMeta', $dbconfig);
 	}
 
 	/**
@@ -155,7 +155,7 @@ class DemoXmlProcessorImpl implements DemoXmlProcessor {
 	 * @return array cleaned up input
 	 */
 	protected function cleanup_input($input) {
-		$defaults = demo_xml::defaults();
+		$defaults = pix_demo_export::defaults();
 		$plugin_cleanup = $this->meta->get('cleanup', array());
 
 		foreach ($this->fields->metadata_array() as $key => $field) {
@@ -186,7 +186,7 @@ class DemoXmlProcessorImpl implements DemoXmlProcessor {
 			// ---------------
 
 			foreach ($cleanup as $rule) {
-				$callback = demo_xml::callback($rule, $this->meta);
+				$callback = pix_demo_export::callback($rule, $this->meta);
 				$input[$key] = call_user_func($callback, $input[$key], $field, $this);
 			}
 		}
@@ -199,7 +199,7 @@ class DemoXmlProcessorImpl implements DemoXmlProcessor {
 	 * @return array
 	 */
 	protected function validate_input($input) {
-		$validator = demo_xml::instance('DemoXmlValidator', $this->meta, $this->fields);
+		$validator = pix_demo_export::instance('DemoXmlValidator', $this->meta, $this->fields);
 		return $validator->validate($input);
 	}
 
@@ -277,7 +277,7 @@ class DemoXmlProcessorImpl implements DemoXmlProcessor {
 	 */
 	protected function preupdate($input)
 	{
-		$defaults = demo_xml::defaults();
+		$defaults = pix_demo_export::defaults();
 		$plugin_hooks = $this->meta->get('processor', array('preupdate' => array(), 'postupdate' => array()));
 
 		// Calculate hooks
@@ -297,7 +297,7 @@ class DemoXmlProcessorImpl implements DemoXmlProcessor {
 		// -------------
 
 		foreach ($hooks as $rule) {
-			$callback = demo_xml::callback($rule, $this->meta);
+			$callback = pix_demo_export::callback($rule, $this->meta);
 			call_user_func($callback, $input, $this);
 		}
 	}
@@ -307,7 +307,7 @@ class DemoXmlProcessorImpl implements DemoXmlProcessor {
 	 */
 	protected function postupdate($input)
 	{
-		$defaults = demo_xml::defaults();
+		$defaults = pix_demo_export::defaults();
 		$plugin_hooks = $this->meta->get('processor', array('preupdate' => array(), 'postupdate' => array()));
 
 		// Calculate hooks
@@ -327,7 +327,7 @@ class DemoXmlProcessorImpl implements DemoXmlProcessor {
 		// -------------
 
 		foreach ($hooks as $rule) {
-			$callback = demo_xml::callback($rule, $this->meta);
+			$callback = pix_demo_export::callback($rule, $this->meta);
 			call_user_func($callback, $input, $this);
 		}
 	}

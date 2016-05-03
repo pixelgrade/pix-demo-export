@@ -10,7 +10,7 @@
  * @author     Pixel Grade Team
  * @copyright  (c) 2013, Pixel Grade Media
  */
-class demo_xml {
+class pix_demo_export {
 
 	/** @var array core defaults */
 	protected static $defaults = null;
@@ -176,7 +176,7 @@ class demo_xml {
 	 * @throws Exception
 	 */
 	static function callback($key, DemoXmlMeta $meta) {
-		$defaults = demo_xml::defaults();
+		$defaults = pix_demo_export::defaults();
 		$default_callbacks = $defaults['callbacks'];
 		$plugin_callbacks = $meta->get('callbacks', array());
 
@@ -191,7 +191,7 @@ class demo_xml {
 	}
 
 	/** @var string the translation text domain */
-	protected static $textdomain = 'demo_xml_txtd';
+	protected static $textdomain = 'pix-demo-export';
 
 	/**
 	 * @return string text domain
@@ -210,7 +210,7 @@ class demo_xml {
 		}
 		else { // null or otherwise empty value
 			// revert to default
-			self::$textdomain = 'demo_xml_txtd';
+			self::$textdomain = 'pix-demo-export';
 		}
 	}
 

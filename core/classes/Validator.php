@@ -38,14 +38,14 @@ class DemoXmlValidatorImpl implements DemoXmlValidator {
 		$fields !== null or $fields = array();
 
 		if (is_array($config)) {
-			$this->meta = demo_xml::instance('DemoXmlMeta', $config);
+			$this->meta = pix_demo_export::instance('DemoXmlMeta', $config);
 		}
 		else { // non-array; assume meta object
 			$this->meta = $config;
 		}
 
 		if (is_array($fields)) {
-			$this->fields = demo_xml::instance('DemoXmlMeta', $fields);
+			$this->fields = pix_demo_export::instance('DemoXmlMeta', $fields);
 		}
 		else { // non-array; assume meta object
 			$this->fields = $fields;
@@ -61,7 +61,7 @@ class DemoXmlValidatorImpl implements DemoXmlValidator {
 	 */
 	function validate($input) {
 		$errors = array();
-		$defaults = demo_xml::defaults();
+		$defaults = pix_demo_export::defaults();
 		$plugin_checks = $this->meta->get('checks', array());
 
 		foreach ($input as $key => $value) {
@@ -89,7 +89,7 @@ class DemoXmlValidatorImpl implements DemoXmlValidator {
 			// ------------------
 
 			foreach ($rules as $rule) {
-				$callback = demo_xml::callback($rule, $this->meta);
+				$callback = pix_demo_export::callback($rule, $this->meta);
 				$valid = call_user_func($callback, $input[$key], $field, $this);
 				if ( ! $valid) {
 					isset($errors[$key]) or $errors[$key] = array();
@@ -110,7 +110,7 @@ class DemoXmlValidatorImpl implements DemoXmlValidator {
 	 */
 	function error_message($rule) {
 		if (self::$error_message_cache === null) {
-			$defaults = demo_xml::defaults();
+			$defaults = pix_demo_export::defaults();
 			$default_errors = $defaults['errors'];
 			$plugin_errors = $this->meta->get('errors', array());
 			self::$error_message_cache = array_merge($default_errors, $plugin_errors);

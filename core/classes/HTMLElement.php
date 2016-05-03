@@ -46,7 +46,7 @@ class DemoXmlHTMLElementImpl extends DemoXmlHTMLTagImpl implements DemoXmlHTMLEl
 		}
 
 		// setup meta fields
-		$this->meta = demo_xml::instance('DemoXmlMeta', $config);
+		$this->meta = pix_demo_export::instance('DemoXmlMeta', $config);
 	}
 
 

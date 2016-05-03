@@ -12,10 +12,10 @@
 	 * @copyright 2013 Pixel Grade Media
 	 */
 
-	$config = include demo_xml::pluginpath().'plugin-config'.EXT;
+	$config = include pix_demo_export::pluginpath().'plugin-config'.EXT;
 
 	// invoke processor
-	$processor = demo_xml::processor($config);
+	$processor = pix_demo_export::processor($config);
 	$status = $processor->status();
 	$errors = $processor->errors(); ?>
 
@@ -23,42 +23,41 @@
 
 	<div id="icon-options-general" class="icon32"><br></div>
 
-	<h2><?php _e('DemoXml', 'demo_xml_txtd'); ?></h2>
+	<h2><?php _e('DemoXml', 'pix-demo-export'); ?></h2>
 
 	<?php if ($processor->ok()): ?>
 
 		<?php if ( ! empty($errors)): ?>
 			<br/>
 			<p class="update-nag">
-				<strong><?php _e('Unable to save settings.', 'demo_xml_txtd'); ?></strong>
-				<?php _e('Please check the fields for errors and typos.', 'demo_xml_txtd'); ?>
+				<strong><?php _e('Unable to save settings.', 'pix-demo-export'); ?></strong>
+				<?php _e('Please check the fields for errors and typos.', 'pix-demo-export'); ?>
 			</p>
 		<?php endif; ?>
 
 		<?php if ($processor->performed_update()): ?>
 			<br/>
 			<p class="update-nag">
-				<?php _e('Settings have been updated.', 'demo_xml_txtd');?>
+				<?php _e('Settings have been updated.', 'pix-demo-export');?>
 			</p>
 		<?php endif; ?>
 
-		<?php echo $f = demo_xml::form($config, $processor);
+		<?php echo $f = pix_demo_export::form($config, $processor);
 
 		wp_enqueue_media(); ?>
 
 		<button type="submit" name="export_xml_submit" class="button button-primary">
-			<?php _e('Export', 'demo_xml_txtd'); ?>
+			<?php _e('Export', 'pix-demo-export'); ?>
 		</button>
 
 		<button type="submit" class="button button-primary">
-			<?php _e('Save Changes', 'demo_xml_txtd'); ?>
+			<?php _e('Save Changes', 'pix-demo-export'); ?>
 		</button>
 
 		<?php
-
 		echo $f->field('hiddens')->render();
 		echo $f->field('rest_export')->render();
-
+		echo $f->field('widgets')->render();
 		echo $f->field('post_metadata')->render();
 
 //		echo $f->field('general')->render();
@@ -99,11 +98,11 @@
 //		); ?>
 
 		<button type="submit" name="export_xml_submit" class="button button-primary">
-			<?php _e('Export', 'demo_xml_txtd'); ?>
+			<?php _e('Export', 'pix-demo-export'); ?>
 		</button>
 
 		<button type="submit" class="button button-primary">
-			<?php _e('Save Changes', 'demo_xml_txtd'); ?>
+			<?php _e('Save Changes', 'pix-demo-export'); ?>
 		</button>
 
 

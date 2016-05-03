@@ -11,12 +11,12 @@
 	// load classes
 
 	$interfacepath = $basepath.'interfaces'.DIRECTORY_SEPARATOR;
-	demo_xml::require_all($interfacepath);
+	pix_demo_export::require_all($interfacepath);
 
 	$classpath = $basepath.'classes'.DIRECTORY_SEPARATOR;
-	demo_xml::require_all($classpath);
+	pix_demo_export::require_all($classpath);
 
 	// load callbacks
 
 	$callbackpath = $basepath.'callbacks'.DIRECTORY_SEPARATOR;
-	demo_xml::require_all($callbackpath);
+	pix_demo_export::require_all($callbackpath);

@@ -169,7 +169,6 @@ class DemoXmlPlugin {
 			DemoXmlPlugin::demo_export( $this->config['replace_args'] );
 			die();
 		}
-
 	}
 
 	/**
@@ -400,6 +399,19 @@ class DemoXmlPlugin {
 		$replacers                = $args['replacers'];
 		$featured_image_replacers = $args['featured_image_replacers'];
 		$ignore                   = $args['ignored_by_replace'];
+
+		$$videos_args = array(
+			'post_type' => 'attachment',
+			'numberposts' => -1,
+			'post_status' => null,
+			'post_parent' => null, // any parent
+			'post_mime_type' => array( 'video' )
+		);
+
+		$videos = get_posts( $videos_args );
+		foreach ( $videos as $count => $video ) {
+			$ignore[] = $video->ID;
+		}
 
 		$sitename = sanitize_key( get_bloginfo( 'name' ) );
 		if ( ! empty( $sitename ) ) {
